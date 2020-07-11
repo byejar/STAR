@@ -1,0 +1,9 @@
+import pysam
+f=pysam.AlignmentFile("new_output_samAligned.out.bam","rb")
+for r in f:
+    if r.has_tag("SA") and r.flag < 2000:
+        b=[r.qname,r.flag,r.cigar,r.get_reference_positions(),r.get_tag("SA").split(",")]
+        if b[2][0][0] == 0 and (b[3][0] > b[4][1]) :
+            print b 
+        elif b[3][0] < b[4][1]:
+            print b
